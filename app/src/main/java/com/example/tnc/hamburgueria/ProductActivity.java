@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ProductActivity extends AppCompatActivity
@@ -20,6 +21,7 @@ public class ProductActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Intent myIntent = getIntent(); // gets the previously created intent
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -42,6 +44,47 @@ public class ProductActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        ImageView img = (ImageView)findViewById(R.id.imageView2);
+        TextView price = (TextView)findViewById(R.id.price);
+        TextView pname = (TextView)findViewById(R.id.productName);
+
+        String name = myIntent.getStringExtra("name");
+        price.setText(myIntent.getStringExtra("price"));
+        pname.setText(name);
+        int pId = Integer.parseInt(name.substring(name.length() - 1));
+        switch (pId) {
+            case 0:
+                img.setImageResource(R.drawable.p0);
+                break;
+            case 1:
+                img.setImageResource(R.drawable.p1);
+                break;
+            case 2:
+                img.setImageResource(R.drawable.p2);
+                break;
+            case 3:
+                img.setImageResource(R.drawable.p3);
+                break;
+            case 4:
+                img.setImageResource(R.drawable.p4);
+                break;
+            case 5:
+                img.setImageResource(R.drawable.p5);
+                break;
+            case 6:
+                img.setImageResource(R.drawable.p6);
+                break;
+            case 7:
+                img.setImageResource(R.drawable.p7);
+                break;
+            case 8:
+                img.setImageResource(R.drawable.p8);
+                break;
+            case 9:
+                img.setImageResource(R.drawable.p9);
+                break;
+        }
     }
 
     @Override
