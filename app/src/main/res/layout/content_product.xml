@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ProductActivity"
+    tools:showIn="@layout/app_bar_product">
+
+    <TextView
+        android:id="@+id/productName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="83dp"
+        android:layout_marginTop="12dp"
+        android:text="Nome do produto"
+        android:textSize="30sp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="56dp"
+        app:srcCompat="@drawable/p0" />
+
+    <TextView
+        android:id="@+id/priceTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/productName"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="329dp"
+        android:layout_marginEnd="138dp"
+        android:text="Preço:"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/priceTag"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="104dp"
+        android:text="R$999,99"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/nproducts"
+        android:layout_width="55dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/priceTag"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="0"
+        android:inputType="number"
+        android:text="1" />
+
+    <TextView
+        android:id="@+id/quantityLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="131dp"
+        android:layout_marginBottom="115dp"
+        android:text="Quantidade:"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/buttonPlus"
+        android:layout_width="47dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quantityLabel"
+        android:layout_marginTop="-115dp"
+        android:layout_toEndOf="@+id/nproducts"
+        android:onClick="sumItem"
+        android:text="+"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/buttonMinus"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/quantityLabel"
+        android:layout_marginTop="-115dp"
+        android:layout_toStartOf="@+id/nproducts"
+        android:onClick="diminishItem"
+        android:text="-"
+        android:textSize="18sp" />
+
+</RelativeLayout>
