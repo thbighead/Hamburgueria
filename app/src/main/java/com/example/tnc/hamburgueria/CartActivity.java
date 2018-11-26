@@ -70,6 +70,8 @@ public class CartActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast toast = Toast.makeText(this, "Limpando lista de produtos do carrinho...", Toast.LENGTH_LONG);
+            toast.show();
             return true;
         }
 
@@ -90,9 +92,6 @@ public class CartActivity extends AppCompatActivity
         } else if (id == R.id.nav_slideshow) {
             Intent it = new Intent(this, OrderActivity.class);
             startActivity(it);
-        } else if (id == R.id.action_settings) {
-            Toast toast = Toast.makeText(this, "Limpando lista de produtos do carrinho...", Toast.LENGTH_LONG);
-            toast.show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
