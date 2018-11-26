@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * Exemplo qualquer de devolução de uma lista de cursos.
-     * Para esse exemplo será considerado um hard coded.
+     * Exemplo qualquer de devolução de uma lista de hamburgueres.
+     * Para esse exemplo será considerado um hard coded, mas poderia ser a resposta de uma API.
      *
      * @return lista com todos os cursos
      */
