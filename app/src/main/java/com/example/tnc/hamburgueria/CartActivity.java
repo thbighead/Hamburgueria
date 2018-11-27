@@ -13,7 +13,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class CartActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,6 +50,36 @@ public class CartActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        ListView lista = (ListView) findViewById(R.id.lista_do_carrinho);
+        List<Hamburguer> hamburgueres = todosOsItens();
+        AdapterCartPersonalizado adapter = new AdapterCartPersonalizado(hamburgueres, this);
+        lista.setAdapter(adapter);
+    }
+
+    /**
+     * TODO: mudar para busca no SQLite
+     *
+     * @return lista com todos os hamburgueres
+     */
+    public static List<Hamburguer> todosOsItens() {
+        List<Hamburguer> lista = new ArrayList<>(Arrays.asList(
+                new Hamburguer("Hamburguer 0", "Maravilhas e delícias 0", 16.9, ImagemDeVitrine.p0),
+                new Hamburguer("Hamburguer 1", "Maravilhas e delícias 1", 15.9, ImagemDeVitrine.p1),
+                new Hamburguer("Hamburguer 2", "Maravilhas e delícias 2", 1.99, ImagemDeVitrine.p2),
+                new Hamburguer("Hamburguer 3", "Maravilhas e delícias 3", 49.0, ImagemDeVitrine.p3),
+                new Hamburguer("Hamburguer 4", "Maravilhas e delícias 4", 10.0, ImagemDeVitrine.p4),
+                new Hamburguer("Hamburguer 5", "Maravilhas e delícias 5", 5.99, ImagemDeVitrine.p5),
+                new Hamburguer("Hamburguer 6", "Maravilhas e delícias 6", 21.98, ImagemDeVitrine.p6),
+                new Hamburguer("Hamburguer 7", "Maravilhas e delícias 7", 31.49, ImagemDeVitrine.p7),
+                new Hamburguer("Hamburguer 8", "Maravilhas e delícias 8", 22.0, ImagemDeVitrine.p8),
+                new Hamburguer("Hamburguer 9", "Maravilhas e delícias 9", 35.67, ImagemDeVitrine.p9)));
+
+        for (Hamburguer hamburguer : lista) {
+            hamburguer.setQuantity((new Random()).nextInt(10) + 1);
+        }
+
+        return lista;
     }
 
     @Override

@@ -75,14 +75,14 @@ public class OrderActivity extends AppCompatActivity
                 order6Hamburguers = new ArrayList<>(todosOsHamburgueres.subList(7, 9)),
                 order7Hamburguers = new ArrayList<>(todosOsHamburgueres.subList(0, 9));
 
-        for (Hamburguer hamburguer : order0Hamburguers) { hamburguer.setQuantity((new Random()).nextInt(10)); }
-        for (Hamburguer hamburguer : order1Hamburguers) { hamburguer.setQuantity((new Random()).nextInt(10)); }
-        for (Hamburguer hamburguer : order2Hamburguers) { hamburguer.setQuantity((new Random()).nextInt(10)); }
-        for (Hamburguer hamburguer : order3Hamburguers) { hamburguer.setQuantity((new Random()).nextInt(10)); }
-        for (Hamburguer hamburguer : order4Hamburguers) { hamburguer.setQuantity((new Random()).nextInt(10)); }
-        for (Hamburguer hamburguer : order5Hamburguers) { hamburguer.setQuantity((new Random()).nextInt(10)); }
-        for (Hamburguer hamburguer : order6Hamburguers) { hamburguer.setQuantity((new Random()).nextInt(10)); }
-        for (Hamburguer hamburguer : order7Hamburguers) { hamburguer.setQuantity((new Random()).nextInt(10)); }
+        for (Hamburguer hamburguer : order0Hamburguers) { hamburguer.setQuantity((new Random()).nextInt(10) + 1); }
+        for (Hamburguer hamburguer : order1Hamburguers) { hamburguer.setQuantity((new Random()).nextInt(10) + 1); }
+        for (Hamburguer hamburguer : order2Hamburguers) { hamburguer.setQuantity((new Random()).nextInt(10) + 1); }
+        for (Hamburguer hamburguer : order3Hamburguers) { hamburguer.setQuantity((new Random()).nextInt(10) + 1); }
+        for (Hamburguer hamburguer : order4Hamburguers) { hamburguer.setQuantity((new Random()).nextInt(10) + 1); }
+        for (Hamburguer hamburguer : order5Hamburguers) { hamburguer.setQuantity((new Random()).nextInt(10) + 1); }
+        for (Hamburguer hamburguer : order6Hamburguers) { hamburguer.setQuantity((new Random()).nextInt(10) + 1); }
+        for (Hamburguer hamburguer : order7Hamburguers) { hamburguer.setQuantity((new Random()).nextInt(10) + 1); }
 
         return new ArrayList<>(Arrays.asList(
                 new Order(Status.CONFIRMED, order0Hamburguers, "456457344635734134536", Operadora.AMEX, 152, "Rua sei lá, vai que é tua"),
