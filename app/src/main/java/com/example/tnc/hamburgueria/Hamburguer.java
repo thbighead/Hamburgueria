@@ -5,12 +5,14 @@ public class Hamburguer {
     private String descricao;
     private Double price;
     private ImagemDeVitrine img;
+    private int quantity;
 
     public Hamburguer(String name, String descricao, Double price, ImagemDeVitrine img) {
         this.name = name;
         this.descricao = descricao;
         this.price = price;
         this.img = img;
+        this.quantity = 0;
     }
 
     public String getNome() {
@@ -27,6 +29,11 @@ public class Hamburguer {
 
     public ImagemDeVitrine getVitrine() {
         return img;
+    }
+
+    public void setQuantity(int quantity) {
+        if (quantity >= 0)
+            this.quantity = quantity;
     }
 
     @Override
