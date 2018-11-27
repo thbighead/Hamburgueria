@@ -27,6 +27,14 @@ public class Hamburguer {
         return "R$" + String.format("%.2f", price);
     }
 
+    public Double getPreco() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
     public ImagemDeVitrine getVitrine() {
         return img;
     }

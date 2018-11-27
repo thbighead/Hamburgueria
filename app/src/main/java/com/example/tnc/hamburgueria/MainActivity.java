@@ -67,9 +67,9 @@ public class MainActivity extends AppCompatActivity
      * Exemplo qualquer de devolução de uma lista de hamburgueres.
      * Para esse exemplo será considerado um hard coded, mas poderia ser a resposta de uma API.
      *
-     * @return lista com todos os cursos
+     * @return lista com todos os hamburgueres
      */
-    private List<Hamburguer> todosOsHamburgueres() {
+    public static List<Hamburguer> todosOsHamburgueres() {
         return new ArrayList<>(Arrays.asList(
                 new Hamburguer("Hamburguer 0", "Maravilhas e delícias 0", 16.9, ImagemDeVitrine.p0),
                 new Hamburguer("Hamburguer 1", "Maravilhas e delícias 1", 15.9, ImagemDeVitrine.p1),
