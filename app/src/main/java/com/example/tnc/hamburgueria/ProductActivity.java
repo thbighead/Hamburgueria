@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ProductActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,8 +32,10 @@ public class ProductActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Toast toast = Toast.makeText(ProductActivity.this, "Adicionando produto(s) ao carrinho...", Toast.LENGTH_LONG);
+                toast.show();
+                Intent it = new Intent(ProductActivity.this, CartActivity.class);
+                startActivity(it);
             }
         });
 
@@ -113,6 +116,8 @@ public class ProductActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent it = new Intent(this, CartActivity.class);
+            startActivity(it);
             return true;
         }
 
@@ -144,13 +149,14 @@ public class ProductActivity extends AppCompatActivity
     public void sumItem(View view) {
         TextView nproducts = (TextView)findViewById(R.id.nproducts);
 
-        nproducts.setText(Integer.valueOf(nproducts.getText().toString()) + 1);
+        nproducts.setText(String.valueOf(Integer.valueOf(nproducts.getText().toString()) + 1));
     }
 
     public void diminishItem(View view) {
         TextView nproducts = (TextView)findViewById(R.id.nproducts);
         int qtd = Integer.valueOf(nproducts.getText().toString()) - 1;
+        qtd = qtd >= 0 ? qtd : 0;
 
-        nproducts.setText(qtd >= 0 ? qtd : 0);
+        nproducts.setText(String.valueOf(qtd));
     }
 }
