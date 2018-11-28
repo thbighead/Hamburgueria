@@ -1,6 +1,8 @@
 package com.example.tnc.hamburgueria;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -27,10 +29,24 @@ import java.util.Random;
 public class OrderActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    SQLiteDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+
+        db = openOrCreateDatabase("hamdb", Context.MODE_PRIVATE, null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS `order`(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "status TEXT, " +
+                "cardNumber TEXT, " +
+                "operadora TEXT, " +
+                "cvv INTEGER, " +
+                "address TEXT)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS orderItem(hamburguer_id INTEGER, " +
+                "order_id INTEGER, " +
+                "quantity INTEGER)");
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
