@@ -2,10 +2,12 @@ package com.example.tnc.hamburgueria;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -45,8 +47,18 @@ public class CartActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent it = new Intent(CartActivity.this, PaymentActivity.class);
-                startActivity(it);
+                try {
+                    List<Hamburguer> hamburgueres = todosOsItens();
+                    if (hamburgueres.size() > 0) {
+                        Intent it = new Intent(CartActivity.this, PaymentActivity.class);
+                        startActivity(it);
+                    } else {
+                        Toast toast = Toast.makeText(CartActivity.this, "Carrinho vazio...", Toast.LENGTH_LONG);
+                        toast.show();
+                    }
+                } catch (Exception e) {
+                    showAlert("Erro recuperando itens do carrinho: " + e.getMessage());
+                }
             }
         });
 
@@ -59,33 +71,45 @@ public class CartActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        List<Hamburguer> hamburgueres = new ArrayList<>();
+        try {
+            hamburgueres = todosOsItens();
+        } catch (Exception e) {
+            showAlert("Erro recuperando itens do carrinho: " + e.getMessage());
+        }
         ListView lista = (ListView) findViewById(R.id.lista_do_carrinho);
-        List<Hamburguer> hamburgueres = todosOsItens();
         AdapterCartPersonalizado adapter = new AdapterCartPersonalizado(hamburgueres, this);
         lista.setAdapter(adapter);
     }
 
+    public void showAlert(String mensagem) {
+        AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
+        dialogo.setTitle("Aviso!");
+        dialogo.setMessage(mensagem);
+        dialogo.setNeutralButton("OK", null);
+        dialogo.show();
+    }
+
     /**
-     * TODO: mudar para busca no SQLite
-     *
      * @return lista com todos os hamburgueres
      */
-    public static List<Hamburguer> todosOsItens() {
-        List<Hamburguer> lista = new ArrayList<>(Arrays.asList(
-                new Hamburguer("Hamburguer 0", "Maravilhas e delícias 0", 16.9, ImagemDeVitrine.p0),
-                new Hamburguer("Hamburguer 1", "Maravilhas e delícias 1", 15.9, ImagemDeVitrine.p1),
-                new Hamburguer("Hamburguer 2", "Maravilhas e delícias 2", 1.99, ImagemDeVitrine.p2),
-                new Hamburguer("Hamburguer 3", "Maravilhas e delícias 3", 49.0, ImagemDeVitrine.p3),
-                new Hamburguer("Hamburguer 4", "Maravilhas e delícias 4", 10.0, ImagemDeVitrine.p4),
-                new Hamburguer("Hamburguer 5", "Maravilhas e delícias 5", 5.99, ImagemDeVitrine.p5),
-                new Hamburguer("Hamburguer 6", "Maravilhas e delícias 6", 21.98, ImagemDeVitrine.p6),
-                new Hamburguer("Hamburguer 7", "Maravilhas e delícias 7", 31.49, ImagemDeVitrine.p7),
-                new Hamburguer("Hamburguer 8", "Maravilhas e delícias 8", 22.0, ImagemDeVitrine.p8),
-                new Hamburguer("Hamburguer 9", "Maravilhas e delícias 9", 35.67, ImagemDeVitrine.p9)));
+    public List<Hamburguer> todosOsItens() {
+        List<Hamburguer> hamburgueres = MainActivity.todosOsHamburgueres();
+        Hamburguer ham;
+        List<Hamburguer> lista = new ArrayList<>();
+        Cursor cart = db.query("cart", (new String[]{
+                "hamburguer_id",
+                "quantity"
+        }), null, null, null, null, null);
+        boolean cartCursor = cart.moveToFirst();
 
-        for (Hamburguer hamburguer : lista) {
-            hamburguer.setQuantity((new Random()).nextInt(10) + 1);
+        while (cartCursor) {
+            ham = hamburgueres.get(cart.getInt(0));
+            ham.setQuantity(cart.getInt(1));
+            lista.add(ham);
+            cartCursor = cart.moveToNext();
         }
+        cart.close();
 
         return lista;
     }
@@ -118,6 +142,9 @@ public class CartActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             Toast toast = Toast.makeText(this, "Limpando lista de produtos do carrinho...", Toast.LENGTH_LONG);
             toast.show();
+            db.delete("cart", null, null);
+            finish();
+            startActivity(getIntent());
             return true;
         }
 

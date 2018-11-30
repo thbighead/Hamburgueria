@@ -1,5 +1,6 @@
 package com.example.tnc.hamburgueria;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -168,6 +169,12 @@ public class OrderActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             Toast toast = Toast.makeText(this, "Atualizando status dos pedidos...", Toast.LENGTH_LONG);
             toast.show();
+            Status[] status = Status.values();
+
+            for (int i = status.length - 2; i >= 0; i--) {
+                db.execSQL("UPDATE `order` SET status=" + Order.nextStatus(status[i]) + " WHERE status=" + status[i].toString());
+            }
+
             return true;
         }
 

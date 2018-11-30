@@ -1,6 +1,9 @@
 package com.example.tnc.hamburgueria;
 
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,11 +23,17 @@ import android.widget.Toast;
 public class ProductActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    SQLiteDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Intent myIntent = getIntent(); // gets the previously created intent
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
+
+        db = openOrCreateDatabase("hamdb", Context.MODE_PRIVATE, null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS cart(hamburguer_id INTEGER, quantity INTEGER DEFAULT 0)");
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -32,10 +41,27 @@ public class ProductActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast toast = Toast.makeText(ProductActivity.this, "Adicionando produto(s) ao carrinho...", Toast.LENGTH_LONG);
-                toast.show();
-                Intent it = new Intent(ProductActivity.this, CartActivity.class);
-                startActivity(it);
+                Toast toast;
+                TextView qtd = (TextView)findViewById(R.id.nproducts);
+                TextView hamName = (TextView)findViewById(R.id.productName);
+                String hamNameStr = hamName.getText().toString();
+                int qtdStr = Integer.parseInt(qtd.getText().toString()),
+                        hamId = Integer.parseInt(hamNameStr.substring(hamNameStr.length() - 1));
+                if (qtdStr > 0) {
+                    toast = Toast.makeText(ProductActivity.this, "Adicionando produto(s) ao carrinho...", Toast.LENGTH_LONG);
+                    toast.show();
+
+                    ContentValues newPedido = new ContentValues();
+                    newPedido.put("hamburguer_id", hamId);
+                    newPedido.put("quantity", qtdStr);
+                    db.insert("cart", null, newPedido);
+
+                    Intent it = new Intent(ProductActivity.this, CartActivity.class);
+                    startActivity(it);
+                } else {
+                    toast = Toast.makeText(ProductActivity.this, "Selecione a quantidade", Toast.LENGTH_LONG);
+                    toast.show();
+                }
             }
         });
 

@@ -9,113 +9,127 @@
     tools:showIn="@layout/app_bar_payment">
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="220dp"
+        android:id="@+id/addressLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="389dp"
+        android:text="Endereço"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/operaLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="206dp"
+        android:text="Operadora"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/cardNumberLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="9dp"
+        android:text="Número do Cartão"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/cardNumberTxt"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="155dp"
-        android:text="PAGAMENTO"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="280dp"
-        android:layout_height="38dp"
-        android:layout_alignStart="@+id/editText"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="-2dp"
-        android:layout_marginTop="61dp"
-        android:text=" Card Number"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="30sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="286dp"
-        android:layout_height="59dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="104dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="49dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Digite o nº do cartão"
+        android:hint="Digite o nº do cartão"
+        android:inputType="text|number"
         android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="290dp"
-        android:layout_height="57dp"
+        android:id="@+id/cvvLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="166dp"
-        android:text="Security Code"
+        android:layout_marginTop="113dp"
+        android:text="CVV"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp"
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/editText4"
-        android:layout_width="334dp"
-        android:layout_height="68dp"
-        android:layout_below="@+id/textView6"
+        android:id="@+id/cvvTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cvvLabel"
         android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="-1dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Digite o códig de segurança"
+        android:hint="Digite o código de segurança"
+        android:inputType="number"
         android:textSize="24sp" />
 
-    <RadioButton
-        android:id="@+id/radioButton"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
+    <RadioGroup
+        android:id="@+id/operadoraGroup"
+        android:layout_width="258dp"
+        android:layout_height="157dp"
         android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="106dp"
-        android:text="VISA"
-        android:textColor="@android:color/background_dark"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <RadioButton
-        android:id="@+id/radioButton2"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_below="@+id/radioButton"
-        android:layout_alignStart="@+id/radioButton"
-        android:text="MASTERCARD"
-        android:textColor="@android:color/background_dark"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <RadioButton
-        android:id="@+id/radioButton3"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_below="@+id/radioButton2"
-        android:layout_alignStart="@+id/radioButton"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="1dp"
-        android:text="ELO"
-        android:textColor="@android:color/background_dark"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <RadioButton
-        android:id="@+id/radioButton4"
-        android:layout_width="282dp"
-        android:layout_height="60dp"
-        android:layout_alignStart="@+id/radioButton3"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="203dp"
-        android:text="AMERICAN EXPRESS"
-        android:textColor="@android:color/background_dark"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="110dp">
+
+        <RadioButton
+            android:id="@+id/radioMC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="MasterCard" />
+
+        <RadioButton
+            android:id="@+id/radioVisa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="VISA" />
+
+        <RadioButton
+            android:id="@+id/radioAmex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="American Express" />
+
+        <RadioButton
+            android:id="@+id/radioElo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ELO" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/addressTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/addressLabel"
+        android:layout_alignParentStart="true"
+        android:ems="10"
+        android:hint="Endereço"
+        android:inputType="text"
+        android:textSize="24sp" />
 
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.example.tnc.hamburgueria;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
@@ -36,6 +37,17 @@ public class Order {
         }
         podrutos = podrutos.substring(0, podrutos.length() - 2);
         return podrutos + "\nTotal: R$" + String.format("%.2f", valor);
+    }
+
+    public static String nextStatus(Status status) {
+        if (status.equals(Status.WAITING))
+            return Status.CONFIRMED.toString();
+        if (status.equals(Status.CONFIRMED))
+            return Status.SENT.toString();
+        if (status.equals(Status.SENT) || status.equals(Status.DELIVERED))
+            return Status.DELIVERED.toString();
+
+        return Status.WAITING.toString();
     }
 
     public static Status resolveStatus(String statText) {
