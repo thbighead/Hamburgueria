@@ -1,5 +1,7 @@
 package com.example.tnc.hamburgueria;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,10 +35,10 @@ public class Order {
         for (Hamburguer hamburguer : hamburguers) {
             int qtd = hamburguer.getQuantity();
             valor += hamburguer.getPreco() * qtd;
-            podrutos += String.valueOf(qtd) + " x " + hamburguer.getNome() + ", ";
+            podrutos += String.valueOf(qtd) + "x " + hamburguer.getNome() + ", ";
         }
-        podrutos = podrutos.substring(0, podrutos.length() - 2);
-        return podrutos + "\nTotal: R$" + String.format("%.2f", valor);
+        Log.d("DOIDEIRA", podrutos + "\nTotal: R$" + String.format("%.2f", valor) + "\nStatus: " + this.status.toString());
+        return podrutos + "\nTotal: R$" + String.format("%.2f", valor) + "\nStatus: " + this.status.toString();
     }
 
     public static String nextStatus(Status status) {
@@ -51,16 +53,16 @@ public class Order {
     }
 
     public static Status resolveStatus(String statText) {
-        if(statText.equals("Aguardando confirmação")) {
+        if (statText.equals("Aguardando confirmação")) {
             return Status.WAITING;
         }
-        if(statText.equals("Confirmado! Seu lanche já está sendo feito")) {
+        if (statText.equals("Confirmado! Seu lanche já está sendo feito")) {
             return Status.CONFIRMED;
         }
-        if(statText.equals("Enviado para entrega")) {
+        if (statText.equals("Enviado para entrega")) {
             return Status.SENT;
         }
-        if(statText.equals("Entregue, com apetite")) {
+        if (statText.equals("Entregue, com apetite")) {
             return Status.DELIVERED;
         }
 
@@ -68,16 +70,16 @@ public class Order {
     }
 
     public static Operadora resolveOperadora(String operText) {
-        if(operText.equals("Master Card")) {
+        if (operText.equals("Master Card")) {
             return Operadora.MASTER;
         }
-        if(operText.equals("Visa")) {
+        if (operText.equals("Visa")) {
             return Operadora.VISA;
         }
-        if(operText.equals("American Express")) {
+        if (operText.equals("American Express")) {
             return Operadora.AMEX;
         }
-        if(operText.equals("ELO")) {
+        if (operText.equals("ELO")) {
             return Operadora.ELO;
         }
 

@@ -19,7 +19,7 @@ public enum Status {
     }, DELIVERED {
         @Override
         public String toString() {
-            return "Entregue, com apetite";
+            return "Entregue, bom apetite";
         }
     }
 }

@@ -3,6 +3,7 @@ package com.example.tnc.hamburgueria;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -127,12 +128,24 @@ public class MainActivity extends AppCompatActivity
             Intent it = new Intent(this, CartActivity.class);
             startActivity(it);
         } else if (id == R.id.nav_slideshow) {
-            Intent it = new Intent(this, OrderActivity.class);
-            startActivity(it);
+            try {
+                Intent it = new Intent(this, OrderActivity.class);
+                startActivity(it);
+            } catch (Exception e) {
+                showAlert("Erro ao carregar tela de pedidos: " + e.getMessage());
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void showAlert(String mensagem) {
+        AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
+        dialogo.setTitle("Aviso!");
+        dialogo.setMessage(mensagem);
+        dialogo.setNeutralButton("OK", null);
+        dialogo.show();
     }
 }

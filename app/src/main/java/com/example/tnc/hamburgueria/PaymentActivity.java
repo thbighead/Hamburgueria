@@ -54,17 +54,17 @@ public class PaymentActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
                     Toast toast;
-                    TextView numCard = (TextView) view.findViewById(R.id.cardNumberTxt);
-                    TextView cvv = (TextView) view.findViewById(R.id.cvvTxt);
+                    TextView numCard = (TextView) findViewById(R.id.cardNumberTxt);
+                    TextView cvv = (TextView) findViewById(R.id.cvvTxt);
                     RadioGroup rdgpOpera = (RadioGroup) findViewById(R.id.operadoraGroup);
                     RadioButton selectedOpera = (RadioButton) findViewById(rdgpOpera.getCheckedRadioButtonId());
-                    TextView address = (TextView) view.findViewById(R.id.addressTxt);
+                    TextView address = (TextView) findViewById(R.id.addressTxt);
                     String numCardStr = numCard.getText().toString(),
                             cvvStr = cvv.getText().toString(),
                             operaStr = selectedOpera.getText().toString(),
                             addressStr = address.getText().toString();
+                try {
                     if (numCardStr.length() > 0 && cvvStr.length() == 3 && operaStr.length() > 0 && addressStr.length() > 0) {
                         toast = Toast.makeText(PaymentActivity.this, "Pagamento efetuado!", Toast.LENGTH_LONG);
                         toast.show();
@@ -99,7 +99,7 @@ public class PaymentActivity extends AppCompatActivity
                         toast.show();
                     }
                 } catch (Exception e) {
-                    showAlert("Erro cadastrar pedido: " + e.getMessage());
+                    showAlert("Erro ao cadastrar pedido: " + e.getMessage());
                 }
             }
         });

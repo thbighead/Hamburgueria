@@ -54,7 +54,7 @@
         android:layout_marginTop="49dp"
         android:ems="10"
         android:hint="Digite o nº do cartão"
-        android:inputType="text|number"
+        android:inputType="number"
         android:textSize="24sp" />
 
     <TextView
