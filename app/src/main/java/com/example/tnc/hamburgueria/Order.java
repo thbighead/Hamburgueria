@@ -37,4 +37,38 @@ public class Order {
         podrutos = podrutos.substring(0, podrutos.length() - 2);
         return podrutos + "\nTotal: R$" + String.format("%.2f", valor);
     }
+
+    public static Status resolveStatus(String statText) {
+        if(statText.equals("Aguardando confirmação")) {
+            return Status.WAITING;
+        }
+        if(statText.equals("Confirmado! Seu lanche já está sendo feito")) {
+            return Status.CONFIRMED;
+        }
+        if(statText.equals("Enviado para entrega")) {
+            return Status.SENT;
+        }
+        if(statText.equals("Entregue, com apetite")) {
+            return Status.DELIVERED;
+        }
+
+        return Status.WAITING;
+    }
+
+    public static Operadora resolveOperadora(String operText) {
+        if(operText.equals("Master Card")) {
+            return Operadora.MASTER;
+        }
+        if(operText.equals("Visa")) {
+            return Operadora.VISA;
+        }
+        if(operText.equals("American Express")) {
+            return Operadora.AMEX;
+        }
+        if(operText.equals("ELO")) {
+            return Operadora.ELO;
+        }
+
+        return Operadora.MASTER;
+    }
 }

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -69,10 +70,23 @@ public class OrderActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        List<Order> pedidos = todosOsPedidos();
+        List<Order> pedidos = new ArrayList<>();
+        try {
+            pedidos = todosOsPedidos();
+        } catch (Exception e) {
+            showAlert("Erro recuperando pedidos: " + e.getMessage());
+        }
         ListView lista = (ListView) findViewById(R.id.lista_de_pedidos);
         ArrayAdapter<Order> adapter = new ArrayAdapter<Order>(this, android.R.layout.simple_list_item_1, pedidos);
         lista.setAdapter(adapter);
+    }
+
+    public void showAlert(String mensagem) {
+        AlertDialog.Builder dialogo = new AlertDialog.Builder(this);
+        dialogo.setTitle("Aviso!");
+        dialogo.setMessage(mensagem);
+        dialogo.setNeutralButton("OK", null);
+        dialogo.show();
     }
 
     /**
@@ -81,17 +95,47 @@ public class OrderActivity extends AppCompatActivity
      * @return lista com todos os pedidos
      */
     private List<Order> todosOsPedidos() {
-        Cursor orders = db.query("order", (new String[] {"*"}), null, null, null, null, null);
-        ArrayList list = new ArrayList<>();
+        Cursor orders = db.query("`order`", (new String[]{
+                "id",
+                "status",
+                "cardNumber",
+                "operadora",
+                "cvv",
+                "address"
+        }), null, null, null, null, null);
+        List<Order> list = new ArrayList<>();
+        List<Hamburguer> productsList = new ArrayList<>();
         boolean orderCursor = orders.moveToFirst(), itemsCursor;
+        List<Hamburguer> hamburguers = MainActivity.todosOsHamburgueres();
 
         while (orderCursor) {
-            Cursor orderItems = db.query("orderItem", (new String[] {"*"}), null, null, null, null, null);
+            Cursor orderItems = db.query("orderItem",
+                    (new String[]{
+                            "hamburguer_id",
+                            "order_id",
+                            "quantity"
+                    }),
+                    "order_id = " + String.valueOf(orders.getInt(0)),
+                    null, null, null, null);
             itemsCursor = orderItems.moveToFirst();
-            while (itemsCursor)
-//            list.add(new Order());
+
+            while (itemsCursor) {
+                productsList.add(hamburguers.get(orderItems.getInt(0)));
+                itemsCursor = orderItems.moveToNext();
+            }
+
+            list.add(new Order(Order.resolveStatus(orders.getString(1)),
+                    productsList,
+                    orders.getString(2),
+                    Order.resolveOperadora(orders.getString(3)),
+                    orders.getInt(4),
+                    orders.getString(5)));
+
+            productsList.clear();
+            orderItems.close();
             orderCursor = orders.moveToNext();
         }
+        orders.close();
 
         return list;
     }
